@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  venueUrl: "https://locahost:3000/",
+  googleMapKey: "AIzaSyAJmmsErvjDcYDTY9lYLp0Xk4dxcPtHziY"
 };
 
 /*

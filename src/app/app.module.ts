@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { environment } from '../environments/environment'
 
 // Google Maps
 import { AgmCoreModule } from '@agm/core';
@@ -18,7 +19,7 @@ import {VenueComponent } from './venues/venues.component'
     HttpClientModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAJmmsErvjDcYDTY9lYLp0Xk4dxcPtHziY'
+      apiKey: environment.googleMapKey
     })
   ],
   providers: [VenueComponent],
