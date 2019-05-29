@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment'
+import { GetDayNamePipe  } from './venues/Day.pipe';
 
 // Google Maps
 import { AgmCoreModule } from '@agm/core';
@@ -12,7 +13,8 @@ import {VenueComponent } from './venues/venues.component'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GetDayNamePipe
   ],
   imports: [
     BrowserModule,

@@ -7,26 +7,34 @@
 
 <agm-map (mapReady)="mapReady($event)" [latitude]="mapLat" [zoom]="zoom" [longitude]="mapLng" [streetViewControl]="false">
     <agm-marker
-    *ngFor="let venue of venueList"
+    *ngFor="let venue of venueService.venueList"
     [latitude]="venue.Geo.Lat"
     [longitude]="venue.Geo.lon"
     [opacity]="1"
-    (markerClick)="selectMarker($event)"
+    (markerClick)="selectMarker($event, venue._id)"
     [iconUrl]="markerIconUrl(venue.isSelected)"
     >
   </agm-marker>
+  <agm-marker
+  *ngIf="yourPosition"
+  [latitude]="yourPosition.lat"
+  [longitude]="yourPosition.lon"
+  [opacity]="1"
+  [iconUrl]="getUserMarkerIcon()"
+  >
+</agm-marker>
 </agm-map>
 
 <div *ngIf="selectedVenue">
   <p>{{selectedVenue._id}}</p>
-  <p>{{selectedVenue.Name}}</p>
+  <h2>{{selectedVenue.Name}}</h2>
   <p>{{selectedVenue.Address}}</p>
   <p>{{selectedVenue.Neighbourhood}}</p>
   <p>{{selectedVenue.PhoneNumber}}</p>
   <p>{{selectedVenue.Website}}</p>
   <ul>
     <li *ngFor="let d of selectedVenue.ListOfOpenHours">
-      {{d.Day}} : {{d.OpeningHours}} : {{d.ClosingHours}}
+     {{d.Day | getDayName}} : {{d.OpeningHours}} : {{d.ClosingHours}}
     </li>
   </ul>
 </div>

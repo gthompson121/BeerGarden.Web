@@ -13,7 +13,6 @@ export class AppComponent {
   mapLat: number = 55.9533;
   mapLng: number = -3.1883;
   zoom: number = 15;
-  venueList: Venue[] = [];
   selectedVenue: Venue;
   map: google.maps.Map;
   yourPosition: {lat:number, lon:number};
@@ -33,26 +32,22 @@ export class AppComponent {
           this.mapLat = position.coords.latitude;
           this.mapLng = position.coords.longitude;
           this.zoom = 15;
-          this.yourPosition.lat = position.coords.latitude;
-          this.yourPosition.lat = position.coords.longitude;
+          this.yourPosition = { lat: position.coords.latitude, lon: position.coords.longitude };
         });
       }
     }
 
     constructor(private venueService : VenueComponent){
-      this.venueService.get_venues().subscribe((res : Venue[])=>{
-        console.log('get_venues');
-        this.venueList = res;
-      });
+        venueService.get_venues();
       }
 
-      selectMarker(event) {
+      selectMarker(event, venueId) {
         if(this.selectedVenue != null)
         {
           this.selectedVenue.isSelected = false;
         }
-        for(let v of this.venueList){
-          if(v.Geo.Lat == event.latitude && v.Geo.lon == event.longitude)
+        for(let v of this.venueService.venueList){
+          if(v._id == venueId)
           {
             this.selectedVenue = v;
             this.selectedVenue.isSelected = true;
@@ -65,7 +60,7 @@ export class AppComponent {
       markerIconUrl(isSelected: boolean) {
         if(isSelected)
         {
-          return '../assets/marker-blue.gif';
+          return 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_yellow+.png';
         } 
         else
         {
@@ -73,18 +68,7 @@ export class AppComponent {
         }
       }
 
-      getDay(day: number)
-      {
-          switch(day)
-          {
-              case 0:{return "Monday"}
-              case 1:{return "Tuesday"}
-              case 2:{return "Wednesday"}
-              case 3:{return "Thursday"}
-              case 4:{return "Friday"}
-              case 5:{return "Saturday"}
-              case 6:{return "Sunday"}
-              default: {return ""};
-          }
+      getUserMarkerIcon(){
+          return "https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_black.png"
       }
 }
