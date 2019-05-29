@@ -1,6 +1,5 @@
+/// <reference types="@types/googlemaps" />
 import { Component, OnInit } from '@angular/core';
-import { AgmMap } from '@agm/core/directives/map'
-import { MarkerManager } from '@agm/core/services/managers/marker-manager'
 import { VenueComponent } from './venues/venues.component'
 import {Venue} from "./venues/venue.model";
 
@@ -11,23 +10,31 @@ import {Venue} from "./venues/venue.model";
 })
 export class AppComponent {
   title = 'BeerGarden-WebApp';
-  lat: number = 55.9533;
-  lng: number = -3.1883;
+  mapLat: number = 55.9533;
+  mapLng: number = -3.1883;
   zoom: number = 15;
   venueList: Venue[] = [];
   selectedVenue: Venue;
+  map: google.maps.Map;
+  yourPosition: {lat:number, lon:number};
 
   ngOnInit() {
     this.setCurrentLocation();
+  }
+
+  mapReady(readyMap:google.maps.Map){
+    this.map = readyMap;
   }
 
     // Get Current Location Coordinates
     private setCurrentLocation() {
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
-          this.lat = position.coords.latitude;
-          this.lng = position.coords.longitude;
+          this.mapLat = position.coords.latitude;
+          this.mapLng = position.coords.longitude;
           this.zoom = 15;
+          this.yourPosition.lat = position.coords.latitude;
+          this.yourPosition.lat = position.coords.longitude;
         });
       }
     }
@@ -36,19 +43,48 @@ export class AppComponent {
       this.venueService.get_venues().subscribe((res : Venue[])=>{
         console.log('get_venues');
         this.venueList = res;
-        console.log(this.venueList);
       });
       }
 
       selectMarker(event) {
-        this.selectedVenue = {
-          _id : event._id,
-          Name: event.Name,
-          Geo:{
-            lon: event.lon,
-            Lat: event.Lat
+        if(this.selectedVenue != null)
+        {
+          this.selectedVenue.isSelected = false;
+        }
+        for(let v of this.venueList){
+          if(v.Geo.Lat == event.latitude && v.Geo.lon == event.longitude)
+          {
+            this.selectedVenue = v;
+            this.selectedVenue.isSelected = true;
+            break;
           }
         };
+        this.map.panTo({ lat: event.latitude, lng: event.longitude });
       }
 
+      markerIconUrl(isSelected: boolean) {
+        if(isSelected)
+        {
+          return '../assets/marker-blue.gif';
+        } 
+        else
+        {
+          return "";
+        }
+      }
+
+      getDay(day: number)
+      {
+          switch(day)
+          {
+              case 0:{return "Monday"}
+              case 1:{return "Tuesday"}
+              case 2:{return "Wednesday"}
+              case 3:{return "Thursday"}
+              case 4:{return "Friday"}
+              case 5:{return "Saturday"}
+              case 6:{return "Sunday"}
+              default: {return ""};
+          }
+      }
 }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  venueUrl: "https://locahost:3000/",
+  venueUrl: "https://beergardenedinburghapi.azurewebsites.net/",
   googleMapKey: "AIzaSyAJmmsErvjDcYDTY9lYLp0Xk4dxcPtHziY"
 };
 
