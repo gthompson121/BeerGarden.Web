@@ -37,7 +37,7 @@ export class AppComponent {
       }
     }
 
-    constructor(private venueService : VenueComponent){
+    constructor(public venueService : VenueComponent){
         venueService.get_venues();
       }
 
