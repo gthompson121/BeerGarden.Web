@@ -9,6 +9,7 @@ import { environment } from '../environments/environment'
 import { AgmCoreModule } from '@agm/core';
 
 import {VenueComponent } from './venues/venues.component'
+import { TwilightService } from './Twilight/twilight.service'
 import { GetDayNamePipe  } from './venues/day.pipe';
 
 @NgModule({
@@ -24,7 +25,7 @@ import { GetDayNamePipe  } from './venues/day.pipe';
       apiKey: environment.googleMapKey
     })
   ],
-  providers: [VenueComponent],
+  providers: [VenueComponent, TwilightService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

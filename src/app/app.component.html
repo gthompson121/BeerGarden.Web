@@ -5,6 +5,11 @@
   </h1>
 </div>
 
+<div>
+  <p *ngIf="twilightService.twilight">Sunrise: {{twilightService.twilight.results.sunrise}} </p>
+  <p *ngIf="twilightService.twilight">Sunset: {{twilightService.twilight.results.sunset}}</p>
+</div>
+
 <agm-map (mapReady)="mapReady($event)" [latitude]="mapLat" [zoom]="zoom" [longitude]="mapLng" [streetViewControl]="false">
     <agm-marker
     *ngFor="let venue of venueService.venueList"

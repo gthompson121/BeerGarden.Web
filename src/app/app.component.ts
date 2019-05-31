@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VenueComponent } from './venues/venues.component'
 import {Venue} from "./venues/venue.model";
+import { TwilightService } from './Twilight/twilight.service'
 
 @Component({
   selector: 'app-root',
@@ -37,8 +38,9 @@ export class AppComponent {
       }
     }
 
-    constructor(public venueService : VenueComponent){
-        venueService.get_venues();
+    constructor(public venueService : VenueComponent, public twilightService : TwilightService){
+        venueService.get_venues()
+        twilightService.get_twilight();
       }
 
       selectMarker(event, venueId) {
