@@ -34,6 +34,7 @@ export class AppComponent {
           this.mapLng = position.coords.longitude;
           this.zoom = 15;
           this.yourPosition = { lat: position.coords.latitude, lon: position.coords.longitude };
+          this.venueService.get_near_venues({lng: this.yourPosition.lon, lat: this.yourPosition.lat, count: 113});
         });
       }
     }

@@ -11,12 +11,11 @@ export class Venue {
         lon: number
     };
     isSelected: boolean;
+    distance: number;
   }
 
   export class Hours{
     Day:number;
     OpeningHours: string;
     ClosingHours: string;
-
-
   }

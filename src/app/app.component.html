@@ -36,6 +36,7 @@
   <p>{{selectedVenue.Neighbourhood}}</p>
   <p>{{selectedVenue.PhoneNumber}}</p>
   <p>{{selectedVenue.Website}}</p>
+  <p>{{selectedVenue.distance | getDistance}}</p>
   <ul>
     <li *ngFor="let d of selectedVenue.ListOfOpenHours">
      {{d.Day | getDayName}} : {{d.OpeningHours}} : {{d.ClosingHours}}
