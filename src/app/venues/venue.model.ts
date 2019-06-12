@@ -17,6 +17,4 @@ export class Venue {
     Day:number;
     OpeningHours: string;
     ClosingHours: string;
-
-
   }

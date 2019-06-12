@@ -10,7 +10,7 @@ import { TwilightService } from './Twilight/twilight.service'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'BeerGarden-WebApp';
+  title = 'Beer Garden Edinburgh';
   mapLat: number = 55.9533;
   mapLng: number = -3.1883;
   zoom: number = 15;
@@ -30,16 +30,25 @@ export class AppComponent {
     private setCurrentLocation() {
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
-          this.mapLat = position.coords.latitude;
-          this.mapLng = position.coords.longitude;
-          this.zoom = 15;
-          this.yourPosition = { lat: position.coords.latitude, lon: position.coords.longitude };
+
+          //south: 55.79841400847045, west: , north: 56.182472371206984, east: -2.625171043457044
+          // Outwith Edinburgh so do not go to position
+          //if(position.coords.latitude > 55.79841400847045 && position.coords.latitude < 56.182472371206984
+            //&& position.coords.longitude > -2.625171043457044 && position.coords.longitude < -3.807574607910169)
+            //{
+              this.mapLat = position.coords.latitude;
+              this.mapLng = position.coords.longitude;
+              this.zoom = 17;
+              this.yourPosition = { lat: position.coords.latitude, lon: position.coords.longitude };
+              var body = { lng:  position.coords.longitude, lat: position.coords.latitude, count: this.venueService.venueList.length };
+              this.venueService.get_venues_near(body);
+            //}
         });
       }
     }
 
     constructor(public venueService : VenueComponent, public twilightService : TwilightService){
-        venueService.get_venues()
+        venueService.get_venues();
         twilightService.get_twilight();
       }
 

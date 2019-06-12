@@ -31,4 +31,8 @@ import {Venue} from "./venue.model";
     get_venues_geo(body : GeoBox){
         return this.httpClient.post(environment.venueUrl + 'venues/geo', body);
     }
+
+    get_venues_near(body){
+      return this.httpClient.post(environment.venueUrl + 'venues/near', body);
+  }
   }
