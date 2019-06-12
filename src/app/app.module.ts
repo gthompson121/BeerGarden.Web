@@ -10,12 +10,14 @@ import { AgmCoreModule } from '@agm/core';
 
 import {VenueComponent } from './venues/venues.component'
 import { TwilightService } from './Twilight/twilight.service'
-import { GetDayNamePipe  } from './venues/day.pipe';
+import { GetDayNamePipe  } from './venues/pipes/day.pipe';
+import { GetDistancePipe } from './venues/pipes/distance.pipe'
 
 @NgModule({
   declarations: [
     AppComponent,
-    GetDayNamePipe
+    GetDayNamePipe,
+    GetDistancePipe
   ],
   imports: [
     BrowserModule,

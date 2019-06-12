@@ -30,19 +30,17 @@ export class AppComponent {
     private setCurrentLocation() {
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
-
           //south: 55.79841400847045, west: , north: 56.182472371206984, east: -2.625171043457044
           // Outwith Edinburgh so do not go to position
-          //if(position.coords.latitude > 55.79841400847045 && position.coords.latitude < 56.182472371206984
-            //&& position.coords.longitude > -2.625171043457044 && position.coords.longitude < -3.807574607910169)
-            //{
+          if(position.coords.latitude > 55.79841400847045 && position.coords.latitude < 56.182472371206984
+            && position.coords.longitude > -2.625171043457044 && position.coords.longitude < -3.807574607910169)
+            {
               this.mapLat = position.coords.latitude;
               this.mapLng = position.coords.longitude;
-              this.zoom = 17;
+              this.zoom = 15;
               this.yourPosition = { lat: position.coords.latitude, lon: position.coords.longitude };
-              var body = { lng:  position.coords.longitude, lat: position.coords.latitude, count: this.venueService.venueList.length };
-              this.venueService.get_venues_near(body);
-            //}
+              this.venueService.get_near_venues({lng: this.yourPosition.lon, lat: this.yourPosition.lat, count: 113});
+            }
         });
       }
     }
